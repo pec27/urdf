@@ -1,3 +1,9 @@
+"""
+Copyright (C) 2015-2025 Peter Creasey
+
+Tests for the urdf library
+"""
+
 from .lib import brdf_iso_jacobi
 from numpy import sin,cos,mgrid,flatnonzero, zeros,pi
 import numpy as np

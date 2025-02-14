@@ -1,7 +1,7 @@
 /*
-  Module for calculating Unitary BRDF terms
+  Copyright (C) 2015-2025 Peter Creasey
 
-  Peter Creasey 2015-2023
+  Module for calculating Unitary BRDF terms
  */
 
 #define PI 3.14159265359
@@ -14,7 +14,6 @@ static double term_k(const unsigned int k, const double complex z,
 		     const double half_one_minus_x, const double two_inv_x1,
 		     const double half_one_minus_y, const double two_inv_y1)
 {
-
   double inv_k_2[MAX_K*2+1];      // inv_k_2[m] = 1 / (2+k+m)
   double z0_term_re[MAX_K*2+1]; // Re[z^m     / (1-z)^(m+2) / (3k choose m)]
   double z1_term_re[MAX_K*2+1]; // Re[z^(m+1) / (1-z)^(m+2) / (3k choose m)]
@@ -40,7 +39,6 @@ static double term_k(const unsigned int k, const double complex z,
     // v_m = e_k z^m / (1-z)^{m+2} (k!) / (k+m+2)!	
     for (unsigned int m=0,m_2=2, m_end=2*k; m<=m_end;++m, ++m_2)
     {
-      
       const double inv = 1.0 / (m_2+k);
       inv_k_2[m] = inv;
       
@@ -141,7 +139,6 @@ static double iso_jacobi_sum(const double nu, const double complex z0, const dou
     Compute the isotropic BRDF terms using expansion of the Zernike 
     eigenfunctions in terms of the Jacobi polynomials
 
-    
     i.e the sum
 
     P(z0,x,y) := 1/pi * Sum_{k=0}^kmax exp(-8 sig^2 k(k+1)) Sum_{a,b=0}^k (k choose a) (k choose b) *
@@ -198,16 +195,15 @@ void brdf_iso_jacobi(const double *xrxs, const double *nu, const int num_pts, co
 {
   /* 
      Calculate the isotropic BRDF using the sum of Jacobi polynomials
-
   */
 
   for (int i=0;i<num_pts;i++)
-    {
-      const double xr = xrxs[i<<2],yr=xrxs[i<<2|1], xs=xrxs[i<<2|2], ys=xrxs[i<<2|3];
-      const double complex z0 = (xr + I*yr)*(xs - I*ys);
-      const double x = 1-2*(xr*xr+yr*yr), y = 1-2*(xs*xs+ys*ys);
-
-      out[i] = iso_jacobi_sum(nu[i],z0,x,y, kmax);
-    }
+  {
+    const double xr = xrxs[i<<2],yr=xrxs[i<<2|1], xs=xrxs[i<<2|2], ys=xrxs[i<<2|3];
+    const double complex z0 = (xr + I*yr)*(xs - I*ys);
+    const double x = 1-2*(xr*xr+yr*yr), y = 1-2*(xs*xs+ys*ys);
+    
+    out[i] = iso_jacobi_sum(nu[i],z0,x,y, kmax);
+  }
 }
 

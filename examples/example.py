@@ -1,4 +1,6 @@
 """
+Copyright (C) 2015-2025 Peter Creasey
+
 Draw an NxN grid of BRDF values
 
 Requires matplotlib
