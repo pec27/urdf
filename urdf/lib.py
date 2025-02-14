@@ -1,6 +1,7 @@
 """
-Module for loading the BRDF library liburdf.so (in C). 
+Copyright (C) 2015-2025 Peter Creasey
 
+Module for loading the BRDF library liburdf.so (in C). 
 """
 from __future__ import print_function
 from numpy.ctypeslib import ndpointer
